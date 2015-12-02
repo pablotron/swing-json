@@ -1,0 +1,18 @@
+{
+  "text": {
+    "frame-title":  "Hello SwingJsonTest",
+    "label-text":   "Test Label"
+  },
+
+  "kids": [{
+    "type": "frame",
+    "text": "frame-title",
+    "close-operation": "exit",
+    "show": true,
+
+    "kids": [{
+      "type": "label",
+      "text": "label-text"
+    }]
+  }]
+}
