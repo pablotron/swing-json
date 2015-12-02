@@ -1,4 +1,4 @@
-package org.pablotron.swingjson.test;
+package test;
 
 import java.io.InputStreamReader;
 import java.io.FileInputStream;
