@@ -8,6 +8,9 @@ import java.util.HashMap;
 
 import java.awt.Component;
 import javax.swing.JComponent;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JRadioButton;
 
 import com.google.gson.JsonParser;
 import com.google.gson.JsonElement;
@@ -18,7 +21,9 @@ public final class ContextParser {
   private static Map<String, ComponentParser> parsers = new HashMap<String, ComponentParser>() {{
     put("frame", new FrameParser());
     put("label", new LabelParser());
-    put("button", new ButtonParser());
+    put("button", new ButtonParser(ButtonType.BUTTON));
+    put("checkbox", new ButtonParser(ButtonType.CHECKBOX));
+    put("radio", new ButtonParser(ButtonType.RADIO));
   }};
 
   private static ComponentParser get_parser(final String key) throws Exception {
