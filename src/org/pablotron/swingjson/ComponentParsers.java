@@ -5,9 +5,6 @@ import java.util.HashMap;
 
 import java.awt.Component;
 import javax.swing.JComponent;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JRadioButton;
 
 import com.google.gson.JsonObject;
 
