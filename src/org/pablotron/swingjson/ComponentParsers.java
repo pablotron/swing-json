@@ -38,23 +38,20 @@ public final class ComponentParsers {
     final JComponent r
   ) throws Exception {
     // add to component group
-    if (el.has("group")) {
+    if (el.has("group"))
       context.getGroup(el.get("group").getAsString()).add(r);
-    }
 
     // set tooltip
-    if (el.has("tip")) {
+    if (el.has("tip"))
       r.setToolTipText(context.getText(el.get("tip").getAsString()));
-    }
 
     // set enabled
-    if (el.has("enabled")) {
+    if (el.has("enabled"))
       r.setEnabled(el.get("enabled").getAsBoolean());
-    }
 
     // set sizes
-    if (el.has("sizes")) {
-      final JsonObject sizes = el.getAsJsonObject("sizes");
+    if (el.has("size")) {
+      final JsonObject sizes = el.getAsJsonObject("size");
 
       if (sizes.has("minimum"))
         r.setMinimumSize(SizeParser.parse(sizes.getAsJsonArray("minimum")));
@@ -65,8 +62,8 @@ public final class ComponentParsers {
     }
 
     // set alignment
-    if (el.has("alignment")) {
-      final JsonObject align = el.getAsJsonObject("alignment");
+    if (el.has("align")) {
+      final JsonObject align = el.getAsJsonObject("align");
 
       if (align.has("x"))
         r.setAlignmentX(AlignmentParser.parse(align.getAsJsonPrimitive("x")));
