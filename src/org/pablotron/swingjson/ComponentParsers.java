@@ -51,6 +51,13 @@ public final class ComponentParsers {
     if (el.has("enabled")) {
       r.setEnabled(el.get("enabled").getAsBoolean());
     }
+
+    if (el.has("minimum-size"))
+      r.setMinimumSize(SizeParser.parse(el.getAsJsonArray("minimum-size")));
+    if (el.has("maximum-size"))
+      r.setMaximumSize(SizeParser.parse(el.getAsJsonArray("maximum-size")));
+    if (el.has("preferred-size"))
+      r.setPreferredSize(SizeParser.parse(el.getAsJsonArray("preferred-size")));
   }
 
   protected static Component parse(
