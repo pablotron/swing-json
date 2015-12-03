@@ -12,7 +12,7 @@ public final class LabelParser implements ComponentParser {
     final String text = el.has("text") ? el.get("text").getAsString() : "";
     final JLabel r = new JLabel(context.getText(text));
 
-    ContextParser.init_component(context, el, r);
+    ComponentParsers.init_component(context, el, r);
 
     return r;
   }

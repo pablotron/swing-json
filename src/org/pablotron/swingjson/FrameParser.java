@@ -33,7 +33,7 @@ public final class FrameParser implements ComponentParser {
 
     if (el.has("kids")) {
       for (final JsonElement kid: el.getAsJsonArray("kids")) {
-        frame.getContentPane().add(ContextParser.parse(
+        frame.getContentPane().add(ComponentParsers.parse(
           context,
           kid.getAsJsonObject()
         ));

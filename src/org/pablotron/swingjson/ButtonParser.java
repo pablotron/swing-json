@@ -23,7 +23,7 @@ public final class ButtonParser implements ComponentParser {
     final AbstractButton b = type.create(text);
 
     // init common component attributes
-    ContextParser.init_component(context, el, b);
+    ComponentParsers.init_component(context, el, b);
 
     // add action
     if (el.has("action")) {
