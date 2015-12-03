@@ -27,7 +27,16 @@
     }, {
       "type": "label",
       "text": "center-label-text",
-      "position": "center"
+      "position": "center",
+
+      "sizes": {
+        "minimum": [640, 480]
+      },
+
+      "alignment": {
+        "x": 1.0,
+        "y": 1.0
+      }
     }, {
       "type": "label",
       "text": "right-label-text",

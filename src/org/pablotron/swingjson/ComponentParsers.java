@@ -42,22 +42,37 @@ public final class ComponentParsers {
       context.getGroup(el.get("group").getAsString()).add(r);
     }
 
-    // add tooltip
+    // set tooltip
     if (el.has("tip")) {
       r.setToolTipText(context.getText(el.get("tip").getAsString()));
     }
 
-    // add enabled
+    // set enabled
     if (el.has("enabled")) {
       r.setEnabled(el.get("enabled").getAsBoolean());
     }
 
-    if (el.has("minimum-size"))
-      r.setMinimumSize(SizeParser.parse(el.getAsJsonArray("minimum-size")));
-    if (el.has("maximum-size"))
-      r.setMaximumSize(SizeParser.parse(el.getAsJsonArray("maximum-size")));
-    if (el.has("preferred-size"))
-      r.setPreferredSize(SizeParser.parse(el.getAsJsonArray("preferred-size")));
+    // set sizes
+    if (el.has("sizes")) {
+      final JsonObject sizes = el.getAsJsonObject("sizes");
+
+      if (sizes.has("minimum"))
+        r.setMinimumSize(SizeParser.parse(sizes.getAsJsonArray("minimum")));
+      if (sizes.has("maximum"))
+        r.setMaximumSize(SizeParser.parse(sizes.getAsJsonArray("maximum")));
+      if (sizes.has("preferred"))
+        r.setPreferredSize(SizeParser.parse(sizes.getAsJsonArray("preferred")));
+    }
+
+    // set alignment
+    if (el.has("alignment")) {
+      final JsonObject align = el.getAsJsonObject("alignment");
+
+      if (align.has("x"))
+        r.setAlignmentX(AlignmentParser.parse(align.getAsJsonPrimitive("x")));
+      if (align.has("y"))
+        r.setAlignmentY(AlignmentParser.parse(align.getAsJsonPrimitive("y")));
+    }
   }
 
   protected static Component parse(
