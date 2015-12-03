@@ -51,6 +51,16 @@ public final class ButtonParser implements ComponentParser {
       ));
     }
 
+    // handle selected
+    if (el.has("selected")) {
+      b.setSelected(el.get("selected").getAsBoolean());
+    }
+
+    // handle button group
+    if (el.has("button-group")) {
+      context.getButtonGroup(el.get("button-group").getAsString()).add(b);
+    }
+
     // return button
     return b;
   }

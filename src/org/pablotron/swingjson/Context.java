@@ -5,11 +5,14 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 import java.awt.Component;
+import java.awt.Component;
+import javax.swing.ButtonGroup;
 
 public final class Context {
   private final List<Component> roots = new ArrayList<>();
   private final Map<String, Component> ids = new HashMap<>();
   private final Map<String, String> texts = new HashMap<>();
+  private final Map<String, ButtonGroup> button_groups = new HashMap<>();
   private final List<Runnable> inits = new ArrayList<>();
 
   public void put(final String id, final Component component) {
@@ -37,6 +40,14 @@ public final class Context {
       throw new Exception("unknown text key: " + key);
 
     return texts.get(key);
+  }
+
+  public ButtonGroup getButtonGroup(final String key) {
+    if (!button_groups.containsKey(key)) {
+      button_groups.put(key, new ButtonGroup());
+    }
+
+    return button_groups.get(key);
   }
 
   public void addInit(final Runnable init) {
