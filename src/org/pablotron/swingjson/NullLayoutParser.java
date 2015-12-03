@@ -6,7 +6,7 @@ import com.google.gson.JsonObject;
 
 public final class NullLayoutParser implements LayoutParser {
   public void set(
-    final Container container,
+    final Container parent,
     final JsonObject el
   ) throws Exception {
     // do nothing
