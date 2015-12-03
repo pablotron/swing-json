@@ -52,9 +52,9 @@ public final class FrameParser implements ComponentParser {
     }
 
     // set close operation
-    if (el.has("close-operation")) {
+    if (el.has("on-close")) {
       frame.setDefaultCloseOperation(
-        get_close_operation(el.get("close-operation").getAsString())
+        get_close_operation(el.get("on-close").getAsString())
       );
     }
 

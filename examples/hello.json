@@ -8,8 +8,7 @@
     "type": "frame",
     "text": "title",
     "show": true,
-
-    "close-operation": "exit",
+    "on-close": "exit",
 
     "kids": [{
       "type": "label",

@@ -1,6 +1,6 @@
 {
   "text": {
-    "frame-title":        "Hello SwingJsonTest",
+    "frame-title":        "SwingJson BorderLayout Example",
     "top-label-text":     "top",
     "left-label-text":    "left",
     "center-label-text":  "Hello World!",
@@ -9,13 +9,12 @@
   },
 
   "kids": [{
-    "type":     "frame",
-    "text":     "frame-title",
+    "type": "frame",
+    "text": "frame-title",
     "on-close": "exit",
-    "show":     true,
+    "show": true,
 
-    "layout":   "box",
-    "axis":     "page",
+    "layout": "border",
 
     "kids": [{
       "type": "label",
@@ -24,22 +23,11 @@
     }, {
       "type": "label",
       "text": "left-label-text",
-
-      "align": {
-        "x": "center"
-      }
+      "position": "line-start"
     }, {
       "type": "label",
       "text": "center-label-text",
-      "position": "center",
-
-      "size": {
-        "minimum": [640, 480]
-      },
-
-      "align": {
-        "x": 1.0
-      }
+      "position": "center"
     }, {
       "type": "label",
       "text": "right-label-text",
