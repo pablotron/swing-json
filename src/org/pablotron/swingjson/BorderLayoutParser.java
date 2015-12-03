@@ -6,6 +6,8 @@ import java.awt.BorderLayout;
 import com.google.gson.JsonObject;
 
 public final class BorderLayoutParser implements LayoutParser {
+  protected BorderLayoutParser() {}
+
   public void set(
     final Container parent,
     final JsonObject el

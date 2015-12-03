@@ -10,6 +10,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonArray;
 
 public final class FrameParser implements ComponentParser {
+  protected FrameParser() {}
+
   private int get_close_operation(final String key) throws Exception {
     switch (key) {
     case "do-nothing":

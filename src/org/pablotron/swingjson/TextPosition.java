@@ -5,6 +5,8 @@ import java.util.HashMap;
 import static javax.swing.SwingConstants.*;
 
 public final class TextPosition {
+  private TextPosition() {}
+
   private static final Map<String, Integer> lut = new HashMap<String, Integer>() {{
     put("bottom", BOTTOM);
     put("center", CENTER);

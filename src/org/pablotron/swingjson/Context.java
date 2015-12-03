@@ -16,6 +16,8 @@ public final class Context {
   private final Map<String, ButtonGroup> button_groups = new HashMap<>();
   private final List<Runnable> inits = new ArrayList<>();
 
+  protected Context() {}
+
   public void put(final String id, final Component component) {
     ids.put(id, component);
   }

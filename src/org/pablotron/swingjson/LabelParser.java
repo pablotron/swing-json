@@ -5,6 +5,8 @@ import javax.swing.JLabel;
 import com.google.gson.JsonObject;
 
 public final class LabelParser implements ComponentParser {
+  protected LabelParser() {}
+
   public Component parse(
     final Context context,
     final JsonObject el

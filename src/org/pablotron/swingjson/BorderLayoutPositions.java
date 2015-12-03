@@ -6,6 +6,8 @@ import java.awt.BorderLayout;
 import com.google.gson.JsonObject;
 
 public final class BorderLayoutPositions {
+  private BorderLayoutPositions() {}
+
   private static Map<String, String> lut = new HashMap<String, String>() {{
     put("center", BorderLayout.CENTER);
     put("line-start", BorderLayout.LINE_START);

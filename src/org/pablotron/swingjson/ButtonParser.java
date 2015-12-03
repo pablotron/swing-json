@@ -11,7 +11,7 @@ import com.google.gson.JsonObject;
 public final class ButtonParser implements ComponentParser {
   private final ButtonType type;
 
-  public ButtonParser(final ButtonType type) {
+  protected ButtonParser(final ButtonType type) {
     this.type = type;
   }
 

@@ -9,6 +9,8 @@ import javax.swing.JComponent;
 import com.google.gson.JsonObject;
 
 public final class LayoutParsers {
+  private LayoutParsers() {}
+
   private static Map<String, LayoutParser> lut = new HashMap<String, LayoutParser>() {{
     put("null", new NullLayoutParser());
     put("flow", new FlowLayoutParser());

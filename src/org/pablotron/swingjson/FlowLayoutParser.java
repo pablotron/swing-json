@@ -6,6 +6,8 @@ import java.awt.FlowLayout;
 import com.google.gson.JsonObject;
 
 public final class FlowLayoutParser implements LayoutParser {
+  protected FlowLayoutParser() {}
+
   public void set(
     final Container parent,
     final JsonObject el

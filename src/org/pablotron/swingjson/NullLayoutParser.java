@@ -5,6 +5,8 @@ import java.awt.Container;
 import com.google.gson.JsonObject;
 
 public final class NullLayoutParser implements LayoutParser {
+  protected NullLayoutParser() {}
+
   public void set(
     final Container parent,
     final JsonObject el

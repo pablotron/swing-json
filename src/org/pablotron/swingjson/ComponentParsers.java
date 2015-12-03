@@ -9,6 +9,8 @@ import javax.swing.JComponent;
 import com.google.gson.JsonObject;
 
 public final class ComponentParsers {
+  private ComponentParsers() {}
+
   private static Map<String, ComponentParser> lut = new HashMap<String, ComponentParser>() {{
     put("frame", new FrameParser());
     put("label", new LabelParser());

@@ -9,6 +9,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonArray;
 
 public final class ContextParser {
+  private ContextParser() {}
+
   private static final JsonParser json_parser = new JsonParser();
 
   public static Context parse(final Reader in) throws Exception {
