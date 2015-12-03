@@ -17,6 +17,9 @@ public final class ComponentParsers {
     put("button", new ButtonParser(ButtonType.BUTTON));
     put("checkbox", new ButtonParser(ButtonType.CHECKBOX));
     put("radio", new ButtonParser(ButtonType.RADIO));
+    put("rigid-area", new RigidAreaParser());
+    put("horizontal-glue", new GlueParser(GlueType.HORIZONTAL));
+    put("vertical-glue", new GlueParser(GlueType.VERTICAL));
   }};
 
   protected static ComponentParser get(final String key) throws Exception {
@@ -32,7 +35,7 @@ public final class ComponentParsers {
    * TODO: move this elsewhere
    *
    */
-  protected static void init_component(
+  protected static JComponent init_component(
     final Context context,
     final JsonObject el,
     final JComponent r
@@ -70,6 +73,8 @@ public final class ComponentParsers {
       if (align.has("y"))
         r.setAlignmentY(AlignmentParser.parse(align.getAsJsonPrimitive("y")));
     }
+
+    return r;
   }
 
   protected static Component parse(
