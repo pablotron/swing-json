@@ -1,16 +1,10 @@
 package org.pablotron.swingjson;
 
 import java.io.Reader;
-import java.util.List;
-import java.util.ArrayList;
 import java.util.Map;
-import java.util.HashMap;
 
 import java.awt.Component;
 import javax.swing.JComponent;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JRadioButton;
 
 import com.google.gson.JsonParser;
 import com.google.gson.JsonElement;
@@ -18,21 +12,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonArray;
 
 public final class ContextParser {
-  private static Map<String, ComponentParser> parsers = new HashMap<String, ComponentParser>() {{
-    put("frame", new FrameParser());
-    put("label", new LabelParser());
-    put("button", new ButtonParser(ButtonType.BUTTON));
-    put("checkbox", new ButtonParser(ButtonType.CHECKBOX));
-    put("radio", new ButtonParser(ButtonType.RADIO));
-  }};
-
-  private static ComponentParser get_parser(final String key) throws Exception {
-    if (!parsers.containsKey(key))
-      throw new Exception("unknown type: " + key);
-
-    return parsers.get(key);
-  }
-
   /*
    * init common component properties
    *
@@ -44,6 +23,11 @@ public final class ContextParser {
     final JsonObject el,
     final JComponent r
   ) throws Exception {
+    // add to component group
+    if (el.has("group")) {
+      context.getGroup(el.get("group").getAsString()).add(r);
+    }
+
     // add tooltip
     if (el.has("tip")) {
       r.setToolTipText(context.getText(el.get("tip").getAsString()));
@@ -60,7 +44,7 @@ public final class ContextParser {
     final JsonObject el
   ) throws Exception {
     final String type = el.get("type").getAsString();
-    final Component r = get_parser(type).parse(context, el);
+    final Component r = ComponentParsers.get(type).parse(context, el);
 
     // cache component id
     if (el.has("id"))

@@ -12,6 +12,7 @@ public final class Context {
   private final List<Component> roots = new ArrayList<>();
   private final Map<String, Component> ids = new HashMap<>();
   private final Map<String, String> texts = new HashMap<>();
+  private final Map<String, List<Component>> groups = new HashMap<>();
   private final Map<String, ButtonGroup> button_groups = new HashMap<>();
   private final List<Runnable> inits = new ArrayList<>();
 
@@ -40,6 +41,14 @@ public final class Context {
       throw new Exception("unknown text key: " + key);
 
     return texts.get(key);
+  }
+
+  public List<Component> getGroup(final String key) {
+    if (!groups.containsKey(key)) {
+      groups.put(key, new ArrayList<Component>());
+    }
+
+    return groups.get(key);
   }
 
   public ButtonGroup getButtonGroup(final String key) {
