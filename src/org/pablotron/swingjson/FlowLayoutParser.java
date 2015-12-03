@@ -10,7 +10,7 @@ public final class FlowLayoutParser implements LayoutParser {
     final Container parent,
     final JsonObject el
   ) throws Exception {
-    // TODO: add support for configuring layout
+    // TODO: add support for orientation
     parent.setLayout(new FlowLayout());
   }
 
