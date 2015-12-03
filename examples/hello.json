@@ -1,0 +1,19 @@
+{
+  "text": {
+    "title": "Hello World!",
+    "body":  "<b>Hello World</b>"
+  },
+
+  "kids": [{
+    "type": "frame",
+    "text": "title",
+    "show": true,
+
+    "close-operation": "exit",
+
+    "kids": [{
+      "type": "label",
+      "text": "body"
+    }]
+  }]
+}
