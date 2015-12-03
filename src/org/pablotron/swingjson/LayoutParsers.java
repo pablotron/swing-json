@@ -11,6 +11,7 @@ import com.google.gson.JsonObject;
 public final class LayoutParsers {
   private static Map<String, LayoutParser> lut = new HashMap<String, LayoutParser>() {{
     put("null", new NullLayoutParser());
+    put("flow", new FlowLayoutParser());
     put("border", new BorderLayoutParser());
   }};
 
