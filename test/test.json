@@ -1,7 +1,11 @@
 {
   "text": {
-    "frame-title":  "Hello SwingJsonTest",
-    "label-text":   "Test Label"
+    "frame-title":        "Hello SwingJsonTest",
+    "top-label-text":     "top",
+    "left-label-text":    "left",
+    "center-label-text":  "Hello World!",
+    "right-label-text":   "right",
+    "bottom-label-text":  "bottom"
   },
 
   "kids": [{
@@ -10,9 +14,28 @@
     "close-operation": "exit",
     "show": true,
 
+    "layout": "border",
+
     "kids": [{
       "type": "label",
-      "text": "label-text"
+      "text": "top-label-text",
+      "position": "page-start"
+    }, {
+      "type": "label",
+      "text": "left-label-text",
+      "position": "line-start"
+    }, {
+      "type": "label",
+      "text": "center-label-text",
+      "position": "center"
+    }, {
+      "type": "label",
+      "text": "right-label-text",
+      "position": "line-end"
+    }, {
+      "type": "label",
+      "text": "bottom-label-text",
+      "position": "page-end"
     }]
   }]
 }

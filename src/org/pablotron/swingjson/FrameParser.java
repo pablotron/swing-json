@@ -1,6 +1,7 @@
 package org.pablotron.swingjson;
 
 import java.awt.Component;
+import java.awt.Container;
 import javax.swing.JFrame;
 import javax.swing.JButton;
 
@@ -30,10 +31,18 @@ public final class FrameParser implements ComponentParser {
   ) throws Exception {
     final String text = el.has("text") ? el.get("text").getAsString() : "";
     final JFrame frame = new JFrame(context.getText(text));
+    final Container content = frame.getContentPane();
+    LayoutParser layout = LayoutParsers.get(null);
+
+    // set close operation
+    if (el.has("layout")) {
+      layout = LayoutParsers.get(el.get("layout").getAsString());
+      layout.set(content, el);
+    }
 
     if (el.has("kids")) {
       for (final JsonElement kid: el.getAsJsonArray("kids")) {
-        frame.getContentPane().add(ComponentParsers.parse(
+        layout.add(content, kid.getAsJsonObject(), ComponentParsers.parse(
           context,
           kid.getAsJsonObject()
         ));
