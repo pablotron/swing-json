@@ -16,6 +16,7 @@ public final class LayoutParsers {
     put("flow", new FlowLayoutParser());
     put("border", new BorderLayoutParser());
     put("box", new BoxLayoutParser());
+    put("card", new CardLayoutParser());
   }};
 
   protected static LayoutParser get(final String key) throws Exception {
