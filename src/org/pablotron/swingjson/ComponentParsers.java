@@ -21,6 +21,7 @@ public final class ComponentParsers {
     put("horizontal-glue", new GlueParser(GlueType.HORIZONTAL));
     put("vertical-glue", new GlueParser(GlueType.VERTICAL));
     put("box-filler", new BoxFillerParser());
+    put("panel", new PanelParser());
   }};
 
   protected static ComponentParser get(final String key) throws Exception {

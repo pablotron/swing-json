@@ -70,11 +70,13 @@ public final class FrameParser implements ComponentParser {
     }
 
     // add pack runnable
-    context.addInit(new Runnable() {
-      public void run() {
-        frame.pack();
-      }
-    });
+    if (!el.has("pack") || el.get("pack").getAsBoolean()) {
+      context.addInit(new Runnable() {
+        public void run() {
+          frame.pack();
+        }
+      });
+    }
 
     // add show runnable
     if (el.has("show") && el.get("show").getAsBoolean()) {
