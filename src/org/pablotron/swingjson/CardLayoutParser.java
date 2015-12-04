@@ -21,9 +21,16 @@ public final class CardLayoutParser implements LayoutParser {
     final JsonObject config,
     final Component child
   ) throws Exception {
+    // get card id
     if (!config.has("id"))
       throw new Exception("missing card property: id");
+    final String id = config.get("id").getAsString();
 
-    parent.add(child, config.get("id").getAsString());
+    // add to parent
+    parent.add(child, id);
+
+    // show child (if requested)
+    if (config.has("show") && config.get("show").getAsBoolean())
+      ((CardLayout) parent.getLayout()).show(parent, id);
   }
 };
