@@ -26,7 +26,6 @@ public final class SpringLayoutParser implements LayoutParser {
   ) throws Exception {
     if (config.has("constraints")) {
       final SpringLayout layout = (SpringLayout) parent.getLayout();
-      final JsonArray cs = config.getAsJsonArray("constraints");
 
       // defer init in case target is not defined
       context.addInit(new Runnable() {
