@@ -25,6 +25,7 @@ public final class ComponentParsers {
     put("combobox", new ComboBoxParser());
     put("editor-pane", new EditorPaneParser());
     put("scroll-pane", new ScrollPaneParser());
+    put("split-pane", new SplitPaneParser());
   }};
 
   protected static ComponentParser get(final String key) throws Exception {
