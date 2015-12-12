@@ -19,7 +19,11 @@
 
     "kids": [{
       "type": "label",
-      "text": "top-left"
+      "text": "top-left",
+
+      "label-align": {
+        "horizontal": "center"
+      }
     }, {
       "type": "button",
       "text": "top-right"
@@ -28,7 +32,11 @@
       "text": "bottom-left"
     }, {
       "type": "label",
-      "text": "bottom-right"
+      "text": "bottom-right",
+
+      "label-align": {
+        "horizontal": "right"
+      }
     }]
   }]
 }
