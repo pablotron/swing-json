@@ -5,6 +5,7 @@ import java.awt.Container;
 import javax.swing.SpringLayout;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonElement;
 
 public final class SpringLayoutParser implements LayoutParser {
   protected SpringLayoutParser() {}
@@ -25,10 +26,19 @@ public final class SpringLayoutParser implements LayoutParser {
   ) throws Exception {
     if (config.has("constraints")) {
       final SpringLayout layout = (SpringLayout) parent.getLayout();
-      final JsonArray constraints = config.getAsJsonArray("constraints");
+      final JsonArray cs = config.getAsJsonArray("constraints");
 
-      for (int i = 0, l = constraints.size(); i < l; i++)
-        constrain(context, layout, child, constraints.get(i).getAsJsonObject());
+      // defer init in case target is not defined
+      context.addInit(new Runnable() {
+        public void run() {
+          try {
+            for (final JsonElement el: config.getAsJsonArray("constraints"))
+              constrain(context, layout, child, el.getAsJsonObject());
+          } catch (Exception e) {
+            context.error(e);
+          }
+        }
+      });
     }
 
     // add to parent

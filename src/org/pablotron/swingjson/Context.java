@@ -15,8 +15,21 @@ public final class Context {
   private final Map<String, List<Component>> groups = new HashMap<>();
   private final Map<String, ButtonGroup> button_groups = new HashMap<>();
   private final List<Runnable> inits = new ArrayList<>();
+  private final ContextErrorHandler handler;
 
-  protected Context() {}
+  private static final ContextErrorHandler DEFAULT_ERROR_HANDLER = new ContextErrorHandler() {
+    public void handle(Exception e) {
+      e.printStackTrace();
+    }
+  };
+
+  protected Context(final ContextErrorHandler handler) {
+    this.handler = (handler != null) ? handler : DEFAULT_ERROR_HANDLER;
+  }
+
+  protected Context() {
+    this(null);
+  }
 
   public void put(final String id, final Component component) {
     ids.put(id, component);
@@ -68,5 +81,9 @@ public final class Context {
   public void init() {
     for (final Runnable init: inits)
       init.run();
+  }
+
+  public void error(final Exception e) {
+    handler.handle(e);
   }
 };
