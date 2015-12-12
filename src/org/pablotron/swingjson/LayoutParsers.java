@@ -17,6 +17,7 @@ public final class LayoutParsers {
     put("border", new BorderLayoutParser());
     put("box", new BoxLayoutParser());
     put("card", new CardLayoutParser());
+    put("gridbag", new GridBagLayoutParser());
   }};
 
   protected static LayoutParser get(final String key) throws Exception {
