@@ -2,7 +2,8 @@ package org.pablotron.swingjson;
 
 import java.io.Reader;
 import java.util.Map;
-
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -27,6 +28,18 @@ public final class ContextParser {
 
         for (final Map.Entry<String, JsonElement> e: text.entrySet())
           r.addText(e.getKey(), e.getValue().getAsString());
+      }
+
+      // set look and feel
+      if (root.has("style")) {
+        final String style = root.get("style").getAsString();
+
+        for (final LookAndFeelInfo info: UIManager.getInstalledLookAndFeels()) {
+          if (style.equals(info.getName())) {
+            UIManager.setLookAndFeel(info.getClassName());
+            break;
+          }
+        }
       }
 
       // parse and add roots

@@ -1,0 +1,68 @@
+{
+  "style": "Nimbus",
+
+  "text": {
+    "title":      "ScrollPane/EditorPane Example",
+
+    "text-name":  "Text:",
+    "text-body":  "Hello World!",
+
+    "page-name":  "Page:",
+
+    "edit-name":  "Editable:",
+    "edit-body":  "Hello World!"
+  },
+
+  "kids": [{
+    "type":     "frame",
+    "text":     "title",
+    "on-close": "exit",
+    "show":     true,
+    "pack":     true,
+
+    "layout":   "grid",
+    "cols":     2,
+
+    "kids": [{
+      "type": "label",
+      "text": "text-name",
+
+      "label-align": {
+        "horizontal": "right"
+      }
+    }, {
+      "type": "editor-pane",
+
+      "editable": false,
+      "content-type": "text/plain",
+      "text": "text-body"
+    }, {
+      "type": "label",
+      "text": "page-name",
+
+      "label-align": {
+        "horizontal": "right"
+      }
+    }, {
+      "type": "scroll-pane",
+
+      "kid": {
+        "type": "editor-pane",
+        "page": "http://pablotron.org/"
+      }
+    }, {
+      "type": "label",
+      "text": "edit-name",
+
+      "label-align": {
+        "horizontal": "right"
+      }
+    }, {
+      "type": "editor-pane",
+
+      "content-type": "text/plain",
+      "editable": true,
+      "text": "edit-body"
+    }]
+  }]
+}
