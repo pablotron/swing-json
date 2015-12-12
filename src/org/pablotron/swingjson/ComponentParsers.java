@@ -23,6 +23,7 @@ public final class ComponentParsers {
     put("box-filler", new BoxFillerParser());
     put("panel", new PanelParser());
     put("combobox", new ComboBoxParser());
+    put("editor-pane", new EditorPaneParser());
   }};
 
   protected static ComponentParser get(final String key) throws Exception {
