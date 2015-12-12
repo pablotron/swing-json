@@ -44,10 +44,8 @@ public final class FrameParser implements ComponentParser {
 
     if (el.has("kids")) {
       for (final JsonElement kid: el.getAsJsonArray("kids")) {
-        layout.add(content, kid.getAsJsonObject(), ComponentParsers.parse(
-          context,
-          kid.getAsJsonObject()
-        ));
+        final JsonObject o = kid.getAsJsonObject();
+        layout.add(context, content, o, ComponentParsers.parse(context, o));
       }
     }
 

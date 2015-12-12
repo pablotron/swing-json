@@ -17,6 +17,7 @@ public final class BorderLayoutParser implements LayoutParser {
   }
 
   public void add(
+    final Context context,
     final Container parent,
     final JsonObject config,
     final Component child

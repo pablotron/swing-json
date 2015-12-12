@@ -30,10 +30,8 @@ public final class PanelParser implements ComponentParser {
     // add children
     if (el.has("kids")) {
       for (final JsonElement kid: el.getAsJsonArray("kids")) {
-        layout.add(panel, kid.getAsJsonObject(), ComponentParsers.parse(
-          context,
-          kid.getAsJsonObject()
-        ));
+        final JsonObject o = kid.getAsJsonObject();
+        layout.add(context, panel, o, ComponentParsers.parse(context, o));
       }
     }
 

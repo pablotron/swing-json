@@ -17,6 +17,7 @@ public final class LayoutParsers {
     put("card", new CardLayoutParser());
     put("gridbag", new GridBagLayoutParser());
     put("grid", new GridLayoutParser());
+    put("spring", new SpringLayoutParser());
   }};
 
   protected static LayoutParser get(final String key) throws Exception {

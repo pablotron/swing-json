@@ -19,6 +19,7 @@ public final class BoxLayoutParser implements LayoutParser {
   }
 
   public void add(
+    final Context context,
     final Container parent,
     final JsonObject config,
     final Component child
