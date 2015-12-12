@@ -2,10 +2,8 @@ package org.pablotron.swingjson;
 
 import java.util.Map;
 import java.util.HashMap;
-
 import java.awt.Component;
 import javax.swing.JComponent;
-
 import com.google.gson.JsonObject;
 
 public final class LayoutParsers {
@@ -18,6 +16,7 @@ public final class LayoutParsers {
     put("box", new BoxLayoutParser());
     put("card", new CardLayoutParser());
     put("gridbag", new GridBagLayoutParser());
+    put("grid", new GridLayoutParser());
   }};
 
   protected static LayoutParser get(final String key) throws Exception {
