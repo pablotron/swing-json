@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.awt.Container;
 import javax.swing.JFrame;
 import javax.swing.JButton;
+import javax.swing.JMenuBar;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -40,6 +41,12 @@ public final class FrameParser implements ComponentParser {
     if (el.has("layout")) {
       layout = LayoutParsers.get(el.get("layout").getAsString());
       layout.set(content, el);
+    }
+
+    // add menu bar
+    if (el.has("menubar")) {
+      final JsonObject o = el.get("menubar").getAsJsonObject();
+      frame.setJMenuBar((JMenuBar) ComponentParsers.parse(context, o));
     }
 
     if (el.has("kids")) {

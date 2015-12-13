@@ -28,6 +28,10 @@ public final class ComponentParsers {
     put("split-pane", new SplitPaneParser());
     put("tabbed-pane", new TabbedPaneParser());
     put("list", new ListParser());
+    put("menubar", new MenuBarParser());
+    put("menu", new MenuParser());
+    put("menuitem", new MenuItemParser());
+    // put("separator", new SeparatorParser());
   }};
 
   protected static ComponentParser get(final String key) throws Exception {

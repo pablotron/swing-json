@@ -1,16 +1,11 @@
 {
   "text": {
-    "title":  "MenuBar Example",
+    "title":  "List Example",
 
     "item-0": "Foo",
     "item-1": "Bar",
     "item-2": "Baz",
-    "item-3": "Blum",
-
-    "menu-file": "File",
-    "menu-item-quit": "Quit",
-    "menu-edit": "Edit",
-    "menu-item-copy": "Copy"
+    "item-3": "Blum"
   },
 
   "kids": [{
@@ -23,28 +18,6 @@
     "layout":   "grid",
     "cols":     1,
 
-    "menubar": {
-      "type": "menubar",
-
-      "kids": [{
-        "type": "menu",
-        "text": "menu-file",
-
-        "kids": [{
-          "type": "menuitem",
-          "text": "menu-item-quit"
-        }]
-      }, {
-        "type": "menu",
-        "text": "menu-edit",
-
-        "kids": [{
-          "type": "menuitem",
-          "text": "menu-item-copy"
-        }]
-      }]
-    },
-
     "kids": [{
       "type": "scroll-pane",
 
@@ -52,8 +25,6 @@
         "type": "list",
 
         "selection-mode": "multiple-interval",
-        "layout-orientation": "horizontal-wrap",
-        "visible-row-count": 3,
 
         "items": [{
           "text": "item-0"

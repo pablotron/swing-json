@@ -104,7 +104,7 @@ public final class ListParser implements ComponentParser {
   }
 
   private static final Map<String, Integer> layout_orientations = new HashMap<String, Integer>() {{
-    put("horizonal-wrap", HORIZONTAL_WRAP);
+    put("horizontal-wrap", HORIZONTAL_WRAP);
     put("vertical-wrap", VERTICAL_WRAP);
     put("vertical", VERTICAL);
   }};
