@@ -37,6 +37,7 @@ public final class ComponentParsers {
     put("progressbar", new ProgressBarParser());
     put("slider", new SliderParser());
     put("text-area", new TextAreaParser());
+    put("text", new TextFieldParser());
   }};
 
   protected static ComponentParser get(final String key) throws Exception {
