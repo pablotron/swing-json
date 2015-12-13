@@ -21,7 +21,7 @@ public final class MenuParser implements ComponentParser {
     // create result
     final JMenu r = new JMenu(context.getText(el.get("text").getAsString()));
 
-    ComponentParsers.init_component(context, el, r);
+    ComponentParsers.initJComponent(context, el, r);
 
     // add children
     if (el.has("kids")) {
@@ -34,14 +34,6 @@ public final class MenuParser implements ComponentParser {
     if (el.has("accelerator")) {
       r.setAccelerator(KeyStroke.getKeyStroke(
         el.get("accelerator").getAsString()
-      ));
-    }
-
-    // set component orientation
-    // FIXME: does this belong in init_component?
-    if (el.has("component-orientation")) {
-      r.setComponentOrientation(ComponentOrientationParser.parse(
-        el.get("component-orientation").getAsString()
       ));
     }
 

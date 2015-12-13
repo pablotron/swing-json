@@ -13,7 +13,7 @@ public final class EditorPaneParser implements ComponentParser {
   ) throws Exception {
     final JEditorPane r = new JEditorPane();
 
-    ComponentParsers.init_component(context, el, r);
+    ComponentParsers.initJComponent(context, el, r);
 
     if (el.has("content-type")) 
       r.setContentType(el.get("content-type").getAsString());

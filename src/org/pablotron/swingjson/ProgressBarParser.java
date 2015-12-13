@@ -13,7 +13,7 @@ public final class ProgressBarParser implements ComponentParser {
   ) throws Exception {
     final JProgressBar r = new JProgressBar();
 
-    ComponentParsers.init_component(context, el, r);
+    ComponentParsers.initJComponent(context, el, r);
 
     // set value
     if (el.has("value"))

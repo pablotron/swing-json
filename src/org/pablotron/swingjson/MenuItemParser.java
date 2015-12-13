@@ -25,7 +25,7 @@ public final class MenuItemParser implements ComponentParser {
       el.get("text").getAsString()
     ));
 
-    ComponentParsers.init_component(context, el, r);
+    ComponentParsers.initJComponent(context, el, r);
 
     // set accelerator
     // FIXME: does this belong in init_component?

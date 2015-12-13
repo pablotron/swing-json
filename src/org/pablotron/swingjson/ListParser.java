@@ -22,7 +22,7 @@ public final class ListParser implements ComponentParser {
   ) throws Exception {
     final JList<ListParserItem> r = new JList<ListParserItem>();
 
-    ComponentParsers.init_component(context, el, r);
+    ComponentParsers.initJComponent(context, el, r);
 
     // set visible row count
     if (el.has("visible-row-count"))

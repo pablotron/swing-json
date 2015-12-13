@@ -17,7 +17,7 @@ public final class SeparatorParser implements ComponentParser {
       el.has("orientation") ? el.get("orientation").getAsString() : null
     ));
 
-    ComponentParsers.init_component(context, el, r);
+    ComponentParsers.initJComponent(context, el, r);
 
     // return result
     return r;

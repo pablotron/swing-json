@@ -13,7 +13,7 @@ public final class SliderParser implements ComponentParser {
   ) throws Exception {
     final JSlider r = new JSlider();
 
-    ComponentParsers.init_component(context, el, r);
+    ComponentParsers.initJComponent(context, el, r);
 
     // set value
     if (el.has("value"))

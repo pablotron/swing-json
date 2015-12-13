@@ -23,7 +23,7 @@ public final class SplitPaneParser implements ComponentParser {
     final int split = get_split(el.get("split").getAsString());
     final JSplitPane r = new JSplitPane(split);
 
-    ComponentParsers.init_component(context, el, r);
+    ComponentParsers.initJComponent(context, el, r);
 
     // set divider size
     if (el.has("divider-size"))

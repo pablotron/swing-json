@@ -14,7 +14,7 @@ public final class ComboBoxParser implements ComponentParser {
     final ComboBoxItems items = ComboBoxItems.parse(context, el);
     final JComboBox r = new JComboBox<String>(items.items);
 
-    ComponentParsers.init_component(context, el, r);
+    ComponentParsers.initJComponent(context, el, r);
 
     // set selected item
     if (items.index != -1)

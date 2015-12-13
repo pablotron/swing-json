@@ -31,7 +31,7 @@ public final class PasswordFieldParser implements ComponentParser {
       r = new JPasswordField();
     }
 
-    ComponentParsers.init_component(context, el, r);
+    ComponentParsers.initJComponent(context, el, r);
 
     // set echo char
     if (el.has("echo-char"))

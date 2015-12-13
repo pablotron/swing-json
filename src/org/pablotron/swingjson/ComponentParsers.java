@@ -3,9 +3,11 @@ package org.pablotron.swingjson;
 import java.util.Map;
 import java.util.HashMap;
 import java.awt.Component;
+import java.awt.Container;
 import javax.swing.JComponent;
 import javax.swing.JPopupMenu;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonArray;
 
 public final class ComponentParsers {
   private ComponentParsers() {}
@@ -53,14 +55,12 @@ public final class ComponentParsers {
    * TODO: move this elsewhere
    *
    */
-  protected static JComponent init_component(
+  protected static void initJComponent(
     final Context context,
     final JsonObject el,
     final JComponent r
   ) throws Exception {
-    // add to component group
-    if (el.has("group"))
-      context.getGroup(el.get("group").getAsString()).add(r);
+    initContainer(context, el, r);
 
     // set alignment
     if (el.has("alignment")) {
@@ -93,10 +93,6 @@ public final class ComponentParsers {
       if (o.has("bg"))
         r.setBackground(context.getColor(o.get("bg").getAsString()));
     }
-
-    // set cursor
-    if (el.has("cursor"))
-      r.setCursor(CursorParser.parse(el.get("cursor").getAsString()));
 
     // set debug graphics options
     if (el.has("debug-graphics-options")) {
@@ -173,8 +169,77 @@ public final class ComponentParsers {
     // set visible (do we want to defer this until later?
     if (el.has("show"))
       r.setVisible(el.get("show").getAsBoolean());
+  }
 
-    return r;
+  protected static void initContainer(
+    final Context context,
+    final JsonObject el,
+    final Container r
+  ) throws Exception {
+    initComponent(context, el, r);
+  }
+
+  protected static void initComponent(
+    final Context context,
+    final JsonObject el,
+    final Component r
+  ) throws Exception {
+    // add to component group
+    if (el.has("group"))
+      context.getGroup(el.get("group").getAsString()).add(r);
+
+    if (el.has("bounds")) {
+      final JsonObject o = el.getAsJsonObject("bounds");
+
+      r.setBounds(
+        o.get("x").getAsInt(),
+        o.get("y").getAsInt(),
+        o.get("w").getAsInt(),
+        o.get("h").getAsInt()
+      );
+    }
+
+    // set cursor
+    if (el.has("cursor"))
+      r.setCursor(CursorParser.parse(el.get("cursor").getAsString()));
+
+    // set component orientation
+    if (el.has("component-orientation")) {
+      r.setComponentOrientation(ComponentOrientationParser.parse(
+        el.get("component-orientation").getAsString()
+      ));
+    }
+
+    if (el.has("drop-target")) {
+      // TODO
+    }
+
+    if (el.has("focusable"))
+      r.setFocusable(el.get("focusable").getAsBoolean());
+
+    if (el.has("focus-traversal-keys")) {
+      // TODO
+    }
+
+    if (el.has("ignore-repaint"))
+      r.setIgnoreRepaint(el.get("ignore-repaint").getAsBoolean());
+
+    if (el.has("locale")) {
+      // TODO
+    }
+
+    if (el.has("location")) {
+      final JsonArray o = el.getAsJsonArray("location");
+      r.setLocation(o.get(0).getAsInt(), o.get(1).getAsInt());
+    }
+
+    // set component name
+    if (el.has("component-name"))
+      r.setName(context.getText(el.get("component-name").getAsString()));
+
+    // set size
+    if (el.has("component-size")) 
+      r.setSize(SizeParser.parse(el.getAsJsonArray("component-size")));
   }
 
   protected static Component parse(

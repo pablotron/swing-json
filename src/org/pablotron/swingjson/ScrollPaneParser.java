@@ -14,7 +14,7 @@ public final class ScrollPaneParser implements ComponentParser {
   ) throws Exception {
     final JScrollPane r = new JScrollPane();
 
-    ComponentParsers.init_component(context, el, r);
+    ComponentParsers.initJComponent(context, el, r);
 
     if (el.has("kid")) {
       final JsonObject kid = el.get("kid").getAsJsonObject();

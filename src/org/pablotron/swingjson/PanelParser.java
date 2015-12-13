@@ -19,7 +19,7 @@ public final class PanelParser implements ComponentParser {
     LayoutParser layout = LayoutParsers.get(null);
 
     // shared component init
-    ComponentParsers.init_component(context, el, panel);
+    ComponentParsers.initJComponent(context, el, panel);
 
     // set layout
     if (el.has("layout")) {

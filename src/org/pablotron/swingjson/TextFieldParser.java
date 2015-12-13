@@ -13,7 +13,7 @@ public final class TextFieldParser implements ComponentParser {
   ) throws Exception {
     final JTextField r = new JTextField();
 
-    ComponentParsers.init_component(context, el, r);
+    ComponentParsers.initJComponent(context, el, r);
 
     // set value
     if (el.has("text"))

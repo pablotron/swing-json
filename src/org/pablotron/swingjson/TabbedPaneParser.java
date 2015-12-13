@@ -18,7 +18,7 @@ public final class TabbedPaneParser implements ComponentParser {
   ) throws Exception {
     final JTabbedPane r = new JTabbedPane();
 
-    ComponentParsers.init_component(context, el, r);
+    ComponentParsers.initJComponent(context, el, r);
 
     // set divider size
     if (el.has("layout"))

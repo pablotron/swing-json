@@ -15,7 +15,7 @@ public final class MenuBarParser implements ComponentParser {
   ) throws Exception {
     final JMenuBar r = new JMenuBar();
 
-    ComponentParsers.init_component(context, el, r);
+    ComponentParsers.initJComponent(context, el, r);
 
     // add children
     if (el.has("kids")) {

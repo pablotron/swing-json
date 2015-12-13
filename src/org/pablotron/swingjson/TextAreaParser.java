@@ -13,7 +13,7 @@ public final class TextAreaParser implements ComponentParser {
   ) throws Exception {
     final JTextArea r = new JTextArea();
 
-    ComponentParsers.init_component(context, el, r);
+    ComponentParsers.initJComponent(context, el, r);
 
     // set value
     if (el.has("text"))

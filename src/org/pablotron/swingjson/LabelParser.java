@@ -14,7 +14,7 @@ public final class LabelParser implements ComponentParser {
     final String text = el.has("text") ? el.get("text").getAsString() : "";
     final JLabel r = new JLabel(context.getText(text));
 
-    ComponentParsers.init_component(context, el, r);
+    ComponentParsers.initJComponent(context, el, r);
 
     if (el.has("text-position")) {
       final JsonObject o = el.getAsJsonObject("text-position");
