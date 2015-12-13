@@ -1,12 +1,11 @@
 {
   "text": {
-    "title":          "TabbedPane Example",
-    "edit-body":      "Hello World!",
+    "title":  "List Example",
 
-    "edit-tab-name":  "Editor Tab",
-    "edit-tab-tip":   "This is the editor tab.",
-    "web-tab-name":   "Web Tab",
-    "web-tab-tip":    "This is the web tab."
+    "item-0": "Foo",
+    "item-1": "Bar",
+    "item-2": "Baz",
+    "item-3": "Blum"
   },
 
   "kids": [{
@@ -20,36 +19,25 @@
     "cols":     1,
 
     "kids": [{
-      "type": "tabbed-pane",
+      "type": "scroll-pane",
 
-      "tabs": [{
-        "text": "edit-tab-name",
-        "tip":  "edit-tab-tip",
+      "kid": {
+        "type": "list",
 
-        "kid": {
-          "type": "scroll-pane",
+        "selection-mode": "multiple-interval",
 
-          "kid": {
-            "type": "editor-pane",
-
-            "content-type": "text/plain",
-            "editable": true,
-            "text": "edit-body"
-          }
-        }
-      }, {
-        "text": "web-tab-name",
-        "tip":  "web-tab-tip",
-
-        "kid": {
-          "type": "scroll-pane",
-
-          "kid": {
-            "type": "editor-pane",
-            "page": "http://pablotron.org/"
-          }
-        }
-      }]
+        "items": [{
+          "text": "item-0"
+        }, {
+          "text": "item-1",
+          "selected": true
+        }, {
+          "text": "item-2",
+          "selected": true
+        }, {
+          "text": "item-3"
+        }]
+      }
     }]
   }]
 }

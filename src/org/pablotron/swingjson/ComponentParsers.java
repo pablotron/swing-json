@@ -27,6 +27,7 @@ public final class ComponentParsers {
     put("scroll-pane", new ScrollPaneParser());
     put("split-pane", new SplitPaneParser());
     put("tabbed-pane", new TabbedPaneParser());
+    put("list", new ListParser());
   }};
 
   protected static ComponentParser get(final String key) throws Exception {
