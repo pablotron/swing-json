@@ -38,9 +38,9 @@ public final class ProgressBarParser implements ComponentParser {
       ));
     }
 
-    // set painted flags
-    if (el.has("painted")) {
-      final JsonObject o = el.get("painted").getAsJsonObject();
+    // set paint flags
+    if (el.has("paint")) {
+      final JsonObject o = el.get("paint").getAsJsonObject();
 
       if (o.has("border"))
         r.setBorderPainted(o.get("border").getAsBoolean());
