@@ -33,7 +33,7 @@ public final class ComponentParsers {
     put("menuitem", new MenuItemParser(ButtonType.DEFAULT));
     put("checkbox-menuitem", new MenuItemParser(ButtonType.CHECKBOX));
     put("radio-menuitem", new MenuItemParser(ButtonType.RADIO));
-    // put("separator", new SeparatorParser());
+    put("separator", new SeparatorParser());
   }};
 
   protected static ComponentParser get(final String key) throws Exception {

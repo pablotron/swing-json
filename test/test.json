@@ -36,6 +36,8 @@
           "type": "checkbox-menuitem",
           "text": "menu-item-check-test"
         }, {
+          "type": "separator"
+        }, {
           "type": "menuitem",
           "text": "menu-item-quit"
         }]
