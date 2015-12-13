@@ -14,7 +14,7 @@ public final class ComponentParsers {
   private static Map<String, ComponentParser> lut = new HashMap<String, ComponentParser>() {{
     put("frame", new FrameParser());
     put("label", new LabelParser());
-    put("button", new ButtonParser(ButtonType.BUTTON));
+    put("button", new ButtonParser(ButtonType.DEFAULT));
     put("checkbox", new ButtonParser(ButtonType.CHECKBOX));
     put("radio", new ButtonParser(ButtonType.RADIO));
     put("rigid-area", new RigidAreaParser());
@@ -30,7 +30,9 @@ public final class ComponentParsers {
     put("list", new ListParser());
     put("menubar", new MenuBarParser());
     put("menu", new MenuParser());
-    put("menuitem", new MenuItemParser());
+    put("menuitem", new MenuItemParser(ButtonType.DEFAULT));
+    put("checkbox-menuitem", new MenuItemParser(ButtonType.CHECKBOX));
+    put("radio-menuitem", new MenuItemParser(ButtonType.RADIO));
     // put("separator", new SeparatorParser());
   }};
 

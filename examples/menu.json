@@ -8,7 +8,9 @@
     "item-3": "Blum",
 
     "menu-file": "File",
+    "menu-item-check-test": "Check Test",
     "menu-item-quit": "Quit",
+
     "menu-edit": "Edit",
     "menu-item-copy": "Copy"
   },
@@ -31,6 +33,9 @@
         "text": "menu-file",
 
         "kids": [{
+          "type": "checkbox-menuitem",
+          "text": "menu-item-check-test"
+        }, {
           "type": "menuitem",
           "text": "menu-item-quit"
         }]

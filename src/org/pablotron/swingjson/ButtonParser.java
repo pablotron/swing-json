@@ -20,7 +20,7 @@ public final class ButtonParser implements ComponentParser {
     final JsonObject el
   ) throws Exception {
     final String text = el.has("text") ? context.getText(el.get("text").getAsString()) : "";
-    final AbstractButton b = type.create(text);
+    final AbstractButton b = type.createButton(text);
 
     // init common component attributes
     ComponentParsers.init_component(context, el, b);

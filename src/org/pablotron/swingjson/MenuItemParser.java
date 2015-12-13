@@ -6,7 +6,11 @@ import javax.swing.JMenuItem;
 import com.google.gson.JsonObject;
 
 public final class MenuItemParser implements ComponentParser {
-  protected MenuItemParser() {}
+  private ButtonType type;
+
+  protected MenuItemParser(final ButtonType type) {
+    this.type = type;
+  }
 
   public Component parse(
     final Context context,
@@ -17,7 +21,7 @@ public final class MenuItemParser implements ComponentParser {
       throw new Exception("missing menu parameter: text");
 
     // create result
-    final JMenuItem r = new JMenuItem(context.getText(
+    final JMenuItem r = type.createMenuItem(context.getText(
       el.get("text").getAsString()
     ));
 
