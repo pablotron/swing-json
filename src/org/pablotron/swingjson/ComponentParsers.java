@@ -4,6 +4,8 @@ import java.util.Map;
 import java.util.HashMap;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Window;
+import java.awt.Frame;
 import javax.swing.JComponent;
 import javax.swing.JPopupMenu;
 import com.google.gson.JsonObject;
@@ -79,7 +81,7 @@ public final class ComponentParsers {
     // set component popup menu
     if (el.has("component-popup-menu")) {
       r.setComponentPopupMenu((JPopupMenu) parse(
-        context, 
+        context,
         el.getAsJsonObject("component-popup-menu")
       ));
     }
@@ -162,13 +164,102 @@ public final class ComponentParsers {
       // TODO
     }
 
-    // set verify-input-when-focus-target 
+    // set verify-input-when-focus-target
     if (el.has("verify-input-when-focus-target"))
       r.setVerifyInputWhenFocusTarget(el.get("verify-input-when-focus-target").getAsBoolean());
 
     // set visible (do we want to defer this until later?
     if (el.has("show"))
       r.setVisible(el.get("show").getAsBoolean());
+  }
+
+  protected static void initFrame(
+    final Context context,
+    final JsonObject el,
+    final Frame r
+  ) throws Exception {
+    initWindow(context, el, r);
+
+    if (el.has("extended-state")) {
+      // TODO
+    }
+
+    // set opacity
+    if (el.has("opacity"))
+      r.setOpacity(el.get("opacity").getAsFloat());
+
+    // set resizable
+    if (el.has("resizable"))
+      r.setResizable(el.get("resizable").getAsBoolean());
+
+    // set sizes
+    if (el.has("size")) {
+      final JsonObject o = el.getAsJsonObject("size");
+
+      if (o.has("min"))
+        r.setMinimumSize(SizeParser.parse(o.getAsJsonArray("min")));
+      if (o.has("max"))
+        r.setMaximumSize(SizeParser.parse(o.getAsJsonArray("max")));
+      if (o.has("preferred"))
+        r.setPreferredSize(SizeParser.parse(o.getAsJsonArray("preferred")));
+    }
+
+    if (el.has("shape")) {
+      // TODO
+    }
+
+    // set title
+    if (el.has("title"))
+      r.setTitle(el.get("title").getAsString());
+
+    // set undecorated
+    if (el.has("undecorated"))
+      r.setUndecorated(el.get("undecorated").getAsBoolean());
+  }
+
+  protected static void initWindow(
+    final Context context,
+    final JsonObject el,
+    final Window r
+  ) throws Exception {
+    initContainer(context, el, r);
+
+    if (el.has("always-on-top"))
+      r.setAlwaysOnTop(el.get("always-on-top").getAsBoolean());
+
+    if (el.has("auto-request-focus"))
+      r.setAutoRequestFocus(el.get("auto-request-focus").getAsBoolean());
+
+    // set focusable window state
+    if (el.has("focusable-window-state"))
+      r.setFocusableWindowState(el.get("focusable-window-state").getAsBoolean());
+
+    // set focus cycle root
+    if (el.has("focus-cycle-root"))
+      r.setFocusCycleRoot(el.get("focus-cycle-root").getAsBoolean());
+
+    if (el.has("icon-images")) {
+      // TODO
+    }
+
+    // set location by platform
+    if (el.has("location-by-platform"))
+      r.setLocationByPlatform(el.get("location-by-platform").getAsBoolean());
+
+    // set location relative to
+    if (el.has("location-relative-to")) {
+      r.setLocationRelativeTo(
+        context.get(el.get("location-relative-to").getAsString())
+      );
+    }
+
+    if (el.has("modal-exclusion-type")) {
+      // TODO
+    }
+
+    if (el.has("window-type")) {
+      // TODO
+    }
   }
 
   protected static void initContainer(
@@ -228,6 +319,7 @@ public final class ComponentParsers {
       // TODO
     }
 
+    // set location
     if (el.has("location")) {
       final JsonArray o = el.getAsJsonArray("location");
       r.setLocation(o.get(0).getAsInt(), o.get(1).getAsInt());
@@ -238,7 +330,7 @@ public final class ComponentParsers {
       r.setName(context.getText(el.get("component-name").getAsString()));
 
     // set size
-    if (el.has("component-size")) 
+    if (el.has("component-size"))
       r.setSize(SizeParser.parse(el.getAsJsonArray("component-size")));
   }
 

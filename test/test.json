@@ -12,6 +12,10 @@
     "show":     true,
     "pack":     true,
 
+    "size": {
+      "min": [640, 480]
+    },
+
     "layout":   "grid",
     "cols":     1,
 
