@@ -5,13 +5,16 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 import java.awt.Component;
-import java.awt.Component;
+import java.awt.Font;
+import java.awt.Color;
 import javax.swing.ButtonGroup;
 
 public final class Context {
   private final List<Component> roots = new ArrayList<>();
   private final Map<String, Component> ids = new HashMap<>();
   private final Map<String, String> texts = new HashMap<>();
+  private final Map<String, Font> fonts = new HashMap<>();
+  private final Map<String, Color> colors = new HashMap<>();
   private final Map<String, List<Component>> groups = new HashMap<>();
   private final Map<String, ButtonGroup> button_groups = new HashMap<>();
   private final List<Runnable> inits = new ArrayList<>();
@@ -56,6 +59,29 @@ public final class Context {
       throw new Exception("unknown text key: " + key);
 
     return texts.get(key);
+  }
+
+  public void addColor(final String key, final String color) {
+    // TODO: add ColorParser
+    colors.put(key, Color.decode(color));
+  }
+
+  public Color getColor(final String key) throws Exception {
+    if (!colors.containsKey(key))
+      throw new Exception("unknown color: " + key);
+
+    return colors.get(key);
+  }
+
+  public void addFont(final String key, final Font font) {
+    fonts.put(key, font);
+  }
+
+  public Font getFont(final String key) throws Exception {
+    if (!fonts.containsKey(key))
+      throw new Exception("unknown font: " + key);
+
+    return fonts.get(key);
   }
 
   public List<Component> getGroup(final String key) {

@@ -17,6 +17,10 @@
     "layout":   "grid",
     "cols":     1,
 
+    "size": {
+      "preferred": [640, 480]
+    },
+
     "kids": [{
       "type": "label",
       "text": "h-label"

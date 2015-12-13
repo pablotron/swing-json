@@ -33,8 +33,8 @@ public final class FrameParser implements ComponentParser {
     final JsonObject el
   ) throws Exception {
     final String text = el.has("text") ? el.get("text").getAsString() : "";
-    final JFrame frame = new JFrame(context.getText(text));
-    final Container content = frame.getContentPane();
+    final JFrame r = new JFrame(context.getText(text));
+    final Container content = r.getContentPane();
     LayoutParser layout = LayoutParsers.get(null);
 
     // set close operation
@@ -43,11 +43,53 @@ public final class FrameParser implements ComponentParser {
       layout.set(content, el);
     }
 
+    // set colors
+    if (el.has("colors")) {
+      final JsonObject o = el.getAsJsonObject("colors");
+
+      if (o.has("fg"))
+        r.setForeground(context.getColor(o.get("fg").getAsString()));
+      if (o.has("bg"))
+        r.setBackground(context.getColor(o.get("bg").getAsString()));
+    }
+
+    // set cursor
+    if (el.has("cursor"))
+      r.setCursor(CursorParser.parse(el.get("cursor").getAsString()));
+
     // add menu bar
     if (el.has("menubar")) {
       final JsonObject o = el.get("menubar").getAsJsonObject();
-      frame.setJMenuBar((JMenuBar) ComponentParsers.parse(context, o));
+      r.setJMenuBar((JMenuBar) ComponentParsers.parse(context, o));
     }
+
+    // set opacity
+    if (el.has("opacity"))
+      r.setOpacity(el.get("opacity").getAsFloat());
+
+    // set resizable
+    if (el.has("resizable"))
+      r.setResizable(el.get("resizable").getAsBoolean());
+
+    // set sizes
+    if (el.has("size")) {
+      final JsonObject o = el.getAsJsonObject("size");
+
+      if (o.has("min"))
+        r.setMinimumSize(SizeParser.parse(o.getAsJsonArray("min")));
+      if (o.has("max"))
+        r.setMaximumSize(SizeParser.parse(o.getAsJsonArray("max")));
+      if (o.has("preferred"))
+        r.setPreferredSize(SizeParser.parse(o.getAsJsonArray("preferred")));
+    }
+
+    if (el.has("state")) {
+      // TODO: use setExtendedState
+    }
+
+    // set undecorated
+    if (el.has("undecorated"))
+      r.setUndecorated(el.get("undecorated").getAsBoolean());
 
     if (el.has("kids")) {
       for (final JsonElement kid: el.getAsJsonArray("kids")) {
@@ -58,7 +100,7 @@ public final class FrameParser implements ComponentParser {
 
     // set close operation
     if (el.has("on-close")) {
-      frame.setDefaultCloseOperation(
+      r.setDefaultCloseOperation(
         get_close_operation(el.get("on-close").getAsString())
       );
     }
@@ -69,7 +111,7 @@ public final class FrameParser implements ComponentParser {
 
       context.addInit(new Runnable() {
         public void run() {
-          frame.getRootPane().setDefaultButton((JButton) context.get(id));
+          r.getRootPane().setDefaultButton((JButton) context.get(id));
         }
       });
     }
@@ -78,7 +120,7 @@ public final class FrameParser implements ComponentParser {
     if (!el.has("pack") || el.get("pack").getAsBoolean()) {
       context.addInit(new Runnable() {
         public void run() {
-          frame.pack();
+          r.pack();
         }
       });
     }
@@ -87,12 +129,12 @@ public final class FrameParser implements ComponentParser {
     if (el.has("show") && el.get("show").getAsBoolean()) {
       context.addInit(new Runnable() {
         public void run() {
-          frame.setVisible(true);
+          r.setVisible(true);
         }
       });
     }
 
     // return result
-    return frame;
+    return r;
   }
 };

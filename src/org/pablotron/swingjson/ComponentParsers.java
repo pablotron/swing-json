@@ -2,10 +2,9 @@ package org.pablotron.swingjson;
 
 import java.util.Map;
 import java.util.HashMap;
-
 import java.awt.Component;
 import javax.swing.JComponent;
-
+import javax.swing.JPopupMenu;
 import com.google.gson.JsonObject;
 
 public final class ComponentParsers {
@@ -61,35 +60,117 @@ public final class ComponentParsers {
     if (el.has("group"))
       context.getGroup(el.get("group").getAsString()).add(r);
 
-    // set tooltip
-    if (el.has("tip"))
-      r.setToolTipText(context.getText(el.get("tip").getAsString()));
+    // set alignment
+    if (el.has("alignment")) {
+      final JsonObject o = el.getAsJsonObject("alignment");
+
+      if (o.has("x"))
+        r.setAlignmentX(AlignmentParser.parse(o.getAsJsonPrimitive("x")));
+      if (o.has("y"))
+        r.setAlignmentY(AlignmentParser.parse(o.getAsJsonPrimitive("y")));
+    }
+
+    // set border
+    if (el.has("border"))
+      r.setBorder(BorderParser.parse(el.getAsJsonObject("border")));
+
+    // set component popup menu
+    if (el.has("component-popup-menu")) {
+      r.setComponentPopupMenu((JPopupMenu) parse(
+        context, 
+        el.getAsJsonObject("component-popup-menu")
+      ));
+    }
+
+    // set colors
+    if (el.has("colors")) {
+      final JsonObject o = el.getAsJsonObject("colors");
+
+      if (o.has("fg"))
+        r.setForeground(context.getColor(o.get("fg").getAsString()));
+      if (o.has("bg"))
+        r.setBackground(context.getColor(o.get("bg").getAsString()));
+    }
+
+    // set cursor
+    if (el.has("cursor"))
+      r.setCursor(CursorParser.parse(el.get("cursor").getAsString()));
+
+    // set debug graphics options
+    if (el.has("debug-graphics-options")) {
+      // TODO
+    }
+
+    // set double buffered
+    if (el.has("double-buffered"))
+      r.setDoubleBuffered(el.get("double-buffered").getAsBoolean());
 
     // set enabled
     if (el.has("enabled"))
       r.setEnabled(el.get("enabled").getAsBoolean());
 
+    // set focus traversal keys
+    if (el.has("focus-traversal-keys")) {
+      // TODO
+    }
+
+    // set font
+    if (el.has("font"))
+      r.setFont(context.getFont(el.get("font").getAsString()));
+
+    // set inherits-popup-menu
+    if (el.has("inherits-popup-menu"))
+      r.setInheritsPopupMenu(el.get("inherits-popup-menu").getAsBoolean());
+
+    // set input map
+    if (el.has("input-map")) {
+      // TODO
+    }
+
+    // set input verifier
+    if (el.has("input-verifier")) {
+      // TODO
+    }
+
+    // set opacity
+    if (el.has("opaque"))
+      r.setOpaque(el.get("opaque").getAsBoolean());
+
+    // set request focus enabled
+    if (el.has("request-focus-enabled"))
+      r.setRequestFocusEnabled(el.get("request-focus-enabled").getAsBoolean());
+
     // set sizes
     if (el.has("size")) {
-      final JsonObject sizes = el.getAsJsonObject("size");
+      final JsonObject o = el.getAsJsonObject("size");
 
-      if (sizes.has("minimum"))
-        r.setMinimumSize(SizeParser.parse(sizes.getAsJsonArray("minimum")));
-      if (sizes.has("maximum"))
-        r.setMaximumSize(SizeParser.parse(sizes.getAsJsonArray("maximum")));
-      if (sizes.has("preferred"))
-        r.setPreferredSize(SizeParser.parse(sizes.getAsJsonArray("preferred")));
+      if (o.has("min"))
+        r.setMinimumSize(SizeParser.parse(o.getAsJsonArray("min")));
+      if (o.has("max"))
+        r.setMaximumSize(SizeParser.parse(o.getAsJsonArray("max")));
+      if (o.has("preferred"))
+        r.setPreferredSize(SizeParser.parse(o.getAsJsonArray("preferred")));
     }
 
-    // set alignment
-    if (el.has("align")) {
-      final JsonObject align = el.getAsJsonObject("align");
+    // set tooltip
+    if (el.has("tip"))
+      r.setToolTipText(context.getText(el.get("tip").getAsString()));
 
-      if (align.has("x"))
-        r.setAlignmentX(AlignmentParser.parse(align.getAsJsonPrimitive("x")));
-      if (align.has("y"))
-        r.setAlignmentY(AlignmentParser.parse(align.getAsJsonPrimitive("y")));
+    if (el.has("transfer-handler")) {
+      // TODO
     }
+
+    if (el.has("ui")) {
+      // TODO
+    }
+
+    // set verify-input-when-focus-target 
+    if (el.has("verify-input-when-focus-target"))
+      r.setVerifyInputWhenFocusTarget(el.get("verify-input-when-focus-target").getAsBoolean());
+
+    // set visible (do we want to defer this until later?
+    if (el.has("show"))
+      r.setVisible(el.get("show").getAsBoolean());
 
     return r;
   }

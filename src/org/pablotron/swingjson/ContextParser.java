@@ -42,6 +42,14 @@ public final class ContextParser {
         }
       }
 
+      if (root.has("fonts")) {
+        final JsonObject o = root.get("fonts").getAsJsonObject();
+
+        // add fonts
+        for (final Map.Entry<String, JsonElement> e: o.entrySet())
+          r.addFont(e.getKey(), FontParser.parse(e.getValue()));
+      }
+
       // parse and add roots
       if (root.has("kids")) {
         for (final JsonElement el: root.getAsJsonArray("kids"))
