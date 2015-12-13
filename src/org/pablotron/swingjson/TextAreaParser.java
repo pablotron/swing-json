@@ -16,6 +16,10 @@ public final class TextAreaParser implements ComponentParser {
     ComponentParsers.init_component(context, el, r);
 
     // set value
+    if (el.has("text"))
+      r.setText(context.getText(el.get("text").getAsString()));
+
+    // set value
     if (el.has("editable"))
       r.setEditable(el.get("editable").getAsBoolean());
 
