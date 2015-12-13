@@ -36,6 +36,7 @@ public final class ComponentParsers {
     put("password", new PasswordFieldParser());
     put("progressbar", new ProgressBarParser());
     put("slider", new SliderParser());
+    put("text-area", new TextAreaParser());
   }};
 
   protected static ComponentParser get(final String key) throws Exception {
