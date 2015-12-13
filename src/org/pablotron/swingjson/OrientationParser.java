@@ -7,7 +7,7 @@ import static javax.swing.SwingConstants.*;;
 public final class OrientationParser {
   private OrientationParser() {}
 
-  private static Map<String, Integer> lut = new HashMap<String, Integer>() {{
+  private static final Map<String, Integer> lut = new HashMap<String, Integer>() {{
     put("horizontal", HORIZONTAL);
     put("vertical", VERTICAL);
   }};
