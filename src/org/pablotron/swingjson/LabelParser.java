@@ -16,6 +16,24 @@ public final class LabelParser implements ComponentParser {
 
     ComponentParsers.initJComponent(context, el, r);
 
+    if (el.has("displayed-mnemonic"))
+      r.setDisplayedMnemonic(el.get("displayed-mnemonic").getAsString().charAt(0));
+
+    if (el.has("displayed-mnemonic-index"))
+      r.setDisplayedMnemonic(el.get("displayed-mnemonic-index").getAsInt());
+
+    if (el.has("disabled-icon"))
+      r.setDisabledIcon(context.getIcon(el.get("disabled-icon").getAsString()));
+
+    if (el.has("icon"))
+      r.setIcon(context.getIcon(el.get("icon").getAsString()));
+
+    if (el.has("icon-text-gap"))
+      r.setIconTextGap(el.get("icon").getAsInt());
+
+    if (el.has("label-for"))
+      r.setLabelFor(context.get(el.get("label-for").getAsString()));
+
     if (el.has("text-position")) {
       final JsonObject o = el.getAsJsonObject("text-position");
 

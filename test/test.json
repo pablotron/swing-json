@@ -1,7 +1,7 @@
 {
   "text": {
     "title":      "Tree Example",
-    "click":      "Click Me!",
+    "label":      "Tree:",
     "node-root":  "Root",
     "node-foo":   "Foo",
     "node-bar":   "Bar",
@@ -33,7 +33,14 @@
     "cols":     1,
 
     "kids": [{
+      "type": "label",
+      "text": "label",
+      "icon": "icon-leaf",
+      "label-for": "my-tree"
+    }, {
       "type": "tree",
+
+      "id":   "my-tree",
 
       "root-visible": false,
 

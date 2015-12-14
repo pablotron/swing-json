@@ -1,13 +1,21 @@
 {
   "text": {
     "title":      "Tree Example",
-    "click":      "Click Me!",
+    "label":      "Tree:",
     "node-root":  "Root",
     "node-foo":   "Foo",
     "node-bar":   "Bar",
     "node-baz":   "Baz",
     "node-blum":  "Blum",
-    "node-bleh":  "Bleh"
+    "node-bleh":  "Bleh",
+    "leaf-icon":  "Leaf Icon"
+  },
+
+  "icons": {
+    "icon-leaf": {
+      "url": "test/leaf-icon-16x16.jpg",
+      "text": "leaf-icon"
+    }
   },
 
   "colors": {
@@ -25,7 +33,14 @@
     "cols":     1,
 
     "kids": [{
+      "type": "label",
+      "text": "label",
+      "icon": "icon-leaf",
+      "label-for": "my-tree"
+    }, {
       "type": "tree",
+
+      "id":   "my-tree",
 
       "root-visible": false,
 
@@ -38,6 +53,10 @@
           "selection": {
             "border": "red"
           }
+        },
+
+        "tree-cell-icons": {
+          "leaf": "icon-leaf"
         }
       },
 
