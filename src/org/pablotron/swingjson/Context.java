@@ -8,6 +8,7 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 
 public final class Context {
   private final List<Component> roots = new ArrayList<>();
@@ -15,6 +16,7 @@ public final class Context {
   private final Map<String, String> texts = new HashMap<>();
   private final Map<String, Font> fonts = new HashMap<>();
   private final Map<String, Color> colors = new HashMap<>();
+  private final Map<String, ImageIcon> icons = new HashMap<>();
   private final Map<String, List<Component>> groups = new HashMap<>();
   private final Map<String, ButtonGroup> button_groups = new HashMap<>();
   private final List<Runnable> inits = new ArrayList<>();
@@ -71,6 +73,25 @@ public final class Context {
       throw new Exception("unknown color: " + key);
 
     return colors.get(key);
+  }
+
+  public void addIcon(final String key, final String url, final String text) {
+    final ImageIcon icon;
+
+    if (text != null) {
+      icon = new ImageIcon(url, text);
+    } else {
+      icon = new ImageIcon(url);
+    }
+
+    icons.put(key, icon);
+  }
+
+  public ImageIcon getIcon(final String key) throws Exception {
+    if (!icons.containsKey(key))
+      throw new Exception("unknown icon: " + key);
+
+    return icons.get(key);
   }
 
   public void addFont(final String key, final Font font) {

@@ -67,17 +67,14 @@ public final class TreeCellRendererParser {
     if (el.has("tree-cell-icons")) {
       final JsonObject o = el.getAsJsonObject("tree-cell-icons");
 
-      if (o.has("closed")) {
-        // TODO
-      }
+      if (o.has("closed"))
+        r.setClosedIcon(context.getIcon(o.get("closed").getAsString()));
 
-      if (o.has("leaf")) {
-        // TODO
-      }
+      if (o.has("leaf"))
+        r.setLeafIcon(context.getIcon(o.get("leaf").getAsString()));
 
-      if (o.has("open")) {
-        // TODO
-      }
+      if (o.has("open"))
+        r.setOpenIcon(context.getIcon(o.get("open").getAsString()));
     }
 
     // return result

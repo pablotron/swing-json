@@ -50,6 +50,31 @@ public final class ContextParser {
           r.addColor(e.getKey(), e.getValue().getAsString());
       }
 
+      if (root.has("icons")) {
+        final JsonObject o = root.getAsJsonObject("icons");
+
+        // add icons
+        for (final Map.Entry<String, JsonElement> e: o.entrySet()) {
+          final JsonElement v = e.getValue();
+
+          if (v.isJsonObject()) {
+            final JsonObject h = v.getAsJsonObject();
+
+            // check for required parameter
+            if (!h.has("url"))
+              throw new Exception("missing icon property: url");
+
+            r.addIcon(
+              e.getKey(),
+              h.get("url").getAsString(),
+              h.has("text") ? r.getText(h.get("text").getAsString()) : null
+            );
+          } else {
+            r.addIcon(e.getKey(), v.getAsString(), null);
+          }
+        }
+      }
+
       if (root.has("fonts")) {
         final JsonObject o = root.getAsJsonObject("fonts");
 
