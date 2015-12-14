@@ -10,6 +10,7 @@ import javax.swing.JComponent;
 import javax.swing.JPopupMenu;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 
 public final class ComponentParsers {
   private ComponentParsers() {}
@@ -42,11 +43,13 @@ public final class ComponentParsers {
     put("slider", new SliderParser());
     put("text-area", new TextAreaParser());
     put("text", new TextFieldParser());
+    put("toolbar", new ToolBarParser());
+    put("tree", new TreeParser());
   }};
 
   protected static ComponentParser get(final String key) throws Exception {
     if (!lut.containsKey(key))
-      throw new Exception("unknown type: " + key);
+      throw new Exception("unknown component type: " + key);
 
     return lut.get(key);
   }
@@ -84,6 +87,13 @@ public final class ComponentParsers {
         context,
         el.getAsJsonObject("component-popup-menu")
       ));
+    }
+
+    // set client properties
+    if (el.has("client-properties")) {
+      final JsonObject o = el.getAsJsonObject("client-properties");
+      for (Map.Entry<String, JsonElement> e: o.entrySet())
+        r.putClientProperty(e.getKey(), e.getValue().getAsString());
     }
 
     // set colors

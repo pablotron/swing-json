@@ -1,0 +1,36 @@
+{
+  "text": {
+    "title": "TextField Example",
+    "tip":   "Example text field.",
+    "hello": "Hello World!",
+    "click": "Click Me!"
+  },
+
+  "kids": [{
+    "type":     "frame",
+    "text":     "title",
+    "on-close": "exit",
+    "show":     true,
+    "pack":     true,
+
+    "layout":   "grid",
+    "cols":     1,
+
+    "kids": [{
+      "type": "toolbar",
+
+      "rollover": true,
+      "floatable": true,
+
+      "kids": [{
+        "type": "button",
+        "text": "click"
+      }]
+    }, {
+      "type": "text",
+      "tip":  "tip",
+      "text": "hello",
+      "cols": 40
+    }]
+  }]
+}

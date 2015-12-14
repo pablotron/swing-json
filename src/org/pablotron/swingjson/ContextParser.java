@@ -42,8 +42,16 @@ public final class ContextParser {
         }
       }
 
+      if (root.has("colors")) {
+        final JsonObject o = root.getAsJsonObject("colors");
+
+        // add colors
+        for (final Map.Entry<String, JsonElement> e: o.entrySet())
+          r.addColor(e.getKey(), e.getValue().getAsString());
+      }
+
       if (root.has("fonts")) {
-        final JsonObject o = root.get("fonts").getAsJsonObject();
+        final JsonObject o = root.getAsJsonObject("fonts");
 
         // add fonts
         for (final Map.Entry<String, JsonElement> e: o.entrySet())
