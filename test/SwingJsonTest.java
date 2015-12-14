@@ -3,7 +3,6 @@ package test;
 import java.io.InputStreamReader;
 import java.io.FileInputStream;
 import javax.swing.SwingUtilities;
-import org.pablotron.swingjson.ContextParser;
 import org.pablotron.swingjson.Context;
 
 public final class SwingJsonTest {
@@ -21,7 +20,7 @@ public final class SwingJsonTest {
         SwingJsonTest.class.getResourceAsStream("test.json")
       );
 
-      ContextParser.parse(in).init();
+      Context.parse(in).init();
     } catch (Exception e) {
       e.printStackTrace();
     }
