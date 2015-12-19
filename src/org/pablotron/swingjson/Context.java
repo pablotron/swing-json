@@ -1,10 +1,12 @@
 package org.pablotron.swingjson;
 
 import java.io.Reader;
+import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.EventListener;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.Color;
@@ -12,26 +14,32 @@ import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
+import javax.swing.AbstractAction;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonArray;
 
 public final class Context {
+  private static final Map<String, AbstractAction> DEFAULT_ACTIONS = Collections.emptyMap();
+
+  private static final Map<String, Map<String, EventListener>> DEFAULT_LISTENERS = Collections.emptyMap();
+
   private static final ContextErrorHandler DEFAULT_ERROR_HANDLER = new ContextErrorHandler() {
     public void handle(Exception e) {
       e.printStackTrace();
     }
   };
 
-  private static final JsonParser parser = new JsonParser();
-
   public static Context parse(
     final Reader in,
+    final Map<String, AbstractAction> actions,
+    final Map<String, Map<String, EventListener>> listeners,
     final ContextErrorHandler handler
   ) throws Exception {
+    final JsonParser parser = new JsonParser();
     final JsonObject root = parser.parse(in).getAsJsonObject();
-    final Context r = new Context(handler);
+    final Context r = new Context(actions, listeners, handler);
 
     try {
       // parse text
@@ -108,10 +116,29 @@ public final class Context {
     return r;
   }
 
-  public static Context parse(final Reader in) throws Exception {
-    return parse(in, null);
+  public static Context parse(
+    final Reader in,
+    final Map<String, AbstractAction> actions,
+    final Map<String, Map<String, EventListener>> listeners
+  ) throws Exception {
+    return parse(in, actions, listeners, null);
   }
 
+  public static Context parse(
+    final Reader in,
+    final Map<String, AbstractAction> actions
+  ) throws Exception {
+    return parse(in, actions, null, null);
+  }
+
+  public static Context parse(
+    final Reader in
+  ) throws Exception {
+    return parse(in, null, null, null);
+  }
+
+  private final Map<String, AbstractAction> actions;
+  private final Map<String, Map<String, EventListener>> listeners;
   private final List<Component> roots = new ArrayList<>();
   private final Map<String, Component> ids = new HashMap<>();
   private final Map<String, String> texts = new HashMap<>();
@@ -123,12 +150,18 @@ public final class Context {
   private final List<Runnable> inits = new ArrayList<>();
   private final ContextErrorHandler handler;
 
-  protected Context(final ContextErrorHandler handler) {
+  protected Context(
+    final Map<String, AbstractAction> actions,
+    final Map<String, Map<String, EventListener>> listeners,
+    final ContextErrorHandler handler
+  ) {
+    this.actions = (actions != null) ? actions : DEFAULT_ACTIONS;
+    this.listeners = (listeners != null) ? listeners : DEFAULT_LISTENERS;
     this.handler = (handler != null) ? handler : DEFAULT_ERROR_HANDLER;
   }
 
   protected Context() {
-    this(null);
+    this(null, null, null);
   }
 
   public void put(final String id, final Component component) {
@@ -214,6 +247,27 @@ public final class Context {
     }
 
     return button_groups.get(key);
+  }
+
+  public AbstractAction getAction(final String key) throws Exception {
+    if (!actions.containsKey(key))
+      throw new Exception("unknown action: " + key);
+
+    return actions.get(key);
+  }
+
+  public EventListener getListener(
+    final String type,
+    final String id
+  ) throws Exception {
+    if (!listeners.containsKey(type))
+      throw new Exception("unknown listener type: " + type);
+
+    final Map<String, EventListener> type_listeners = listeners.get(type);
+    if (!type_listeners.containsKey(id))
+      throw new Exception("unknown " + type + " listener: " + id);
+
+    return type_listeners.get(id);
   }
 
   public void addInit(final Runnable init) {

@@ -6,8 +6,30 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Window;
 import java.awt.Frame;
+import java.awt.Insets;
+import java.awt.event.KeyEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemListener;
+import java.awt.event.ComponentListener;
+import java.awt.event.ContainerListener;
+import java.awt.event.FocusListener;
+import java.awt.event.HierarchyBoundsListener;
+import java.awt.event.HierarchyListener;
+import java.awt.event.InputMethodListener;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelListener;
+import java.awt.event.WindowListener;
+import java.awt.event.WindowFocusListener;
+import java.awt.event.WindowStateListener;
+import java.beans.PropertyChangeListener;
+import java.beans.VetoableChangeListener;
+import javax.swing.AbstractButton;
 import javax.swing.JComponent;
 import javax.swing.JPopupMenu;
+import javax.swing.event.AncestorListener;
+import javax.swing.event.ChangeListener;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -54,10 +76,156 @@ public final class ComponentParsers {
     return lut.get(key);
   }
 
+  protected static void initAbstractButton(
+    final Context context,
+    final JsonObject el,
+    final AbstractButton r
+  ) throws Exception {
+    initJComponent(context, el, r);
+
+    // set action
+    if (el.has("action"))
+      r.setAction(context.getAction(el.get("action").getAsString()));
+
+    // set action command
+    if (el.has("action-command"))
+      r.setActionCommand(el.get("action-command").getAsString());
+
+    // set border-painted
+    if (el.has("border-painted"))
+      r.setBorderPainted(el.get("border-painted").getAsBoolean());
+
+    // set content-area-filled
+    if (el.has("content-area-filled"))
+      r.setContentAreaFilled(el.get("content-area-filled").getAsBoolean());
+
+    if (el.has("disabled-icon"))
+      r.setDisabledIcon(context.getIcon(el.get("disabled-icon").getAsString()));
+
+    if (el.has("disabled-selected-icon"))
+      r.setDisabledSelectedIcon(context.getIcon(el.get("disabled-selected-icon").getAsString()));
+
+    // set focus-painted
+    if (el.has("focus-painted"))
+      r.setFocusPainted(el.get("focus-painted").getAsBoolean());
+
+    // set hide-action-text
+    if (el.has("hide-action-text"))
+      r.setHideActionText(el.get("hide-action-text").getAsBoolean());
+
+    // add horizontal alignment
+    if (el.has("horizontal-alignment")) {
+      r.setHorizontalAlignment(TextPosition.parse(
+        el.get("horizontal-alignment").getAsString()
+      ));
+    }
+
+    // add horizontal text position
+    if (el.has("horizontal-text-position")) {
+      r.setHorizontalTextPosition(TextPosition.parse(
+        el.get("horizontal-text-position").getAsString()
+      ));
+    }
+
+    if (el.has("icon"))
+      r.setIcon(context.getIcon(el.get("icon").getAsString()));
+
+    if (el.has("icon-text-gap"))
+      r.setIconTextGap(el.get("icon").getAsInt());
+
+    // add listeners
+    if (el.has("listeners")) {
+      final JsonObject o = el.getAsJsonObject("listeners");
+
+      if (o.has("action")) {
+        for (final JsonElement e: o.getAsJsonArray("action")) {
+          r.addActionListener((ActionListener) context.getListener(
+            "action",
+            e.getAsString()
+          ));
+        }
+      }
+      if (o.has("change")) {
+        for (final JsonElement e: o.getAsJsonArray("change")) {
+          r.addChangeListener((ChangeListener) context.getListener(
+            "change",
+            e.getAsString()
+          ));
+        }
+      }
+
+      if (o.has("item")) {
+        for (final JsonElement e: o.getAsJsonArray("item")) {
+          r.addItemListener((ItemListener) context.getListener(
+            "item",
+            e.getAsString()
+          ));
+        }
+      }
+    }
+
+    if (el.has("margin")) {
+      final JsonObject o = el.getAsJsonObject("margin");
+
+      r.setMargin(new Insets(
+        o.get("top").getAsInt(),
+        o.get("left").getAsInt(),
+        o.get("bottom").getAsInt(),
+        o.get("right").getAsInt()
+      ));
+    }
+
+    // add mnemonic
+    if (el.has("mnemonic")) {
+      r.setMnemonic(KeyEvent.getExtendedKeyCodeForChar(
+        el.get("mnemonic").getAsString().codePointAt(0)
+      ));
+    }
+
+    if (el.has("multi-click-threshhold"))
+      r.setMultiClickThreshhold(el.get("multi-click-threshhold").getAsLong());
+
+    if (el.has("pressed-icon"))
+      r.setPressedIcon(context.getIcon(el.get("pressed-icon").getAsString()));
+
+    if (el.has("rollover-enabled"))
+      r.setRolloverEnabled(el.get("rollover-enabled").getAsBoolean());
+
+    if (el.has("rollover-icon"))
+      r.setRolloverIcon(context.getIcon(el.get("rollover-icon").getAsString()));
+
+    if (el.has("rollover-selected-icon"))
+      r.setRolloverSelectedIcon(context.getIcon(el.get("rollover-selected-icon").getAsString()));
+
+    // set selected
+    if (el.has("selected"))
+      r.setSelected(el.get("selected").getAsBoolean());
+
+    // set selected icon
+    if (el.has("selected-icon"))
+      r.setSelectedIcon(context.getIcon(el.get("selected-icon").getAsString()));
+
+    // set vertical alignment
+    if (el.has("vertical-alignment")) {
+      r.setVerticalAlignment(TextPosition.parse(
+        el.get("vertical-alignment").getAsString()
+      ));
+    }
+
+    // set vertical text position
+    if (el.has("vertical-text-position")) {
+      r.setVerticalTextPosition(TextPosition.parse(
+        el.get("vertical-text-position").getAsString()
+      ));
+    }
+
+    // set button group
+    if (el.has("button-group"))
+      context.getButtonGroup(el.get("button-group").getAsString()).add(r);
+  }
+
   /*
    * init common component properties
-   *
-   * TODO: move this elsewhere
    *
    */
   protected static void initJComponent(
@@ -142,6 +310,31 @@ public final class ComponentParsers {
       // TODO
     }
 
+    // add listeners
+    if (el.has("listeners")) {
+      final JsonObject o = el.getAsJsonObject("listeners");
+
+      if (o.has("ancestor")) {
+        for (final JsonElement e: o.getAsJsonArray("ancestor")) {
+          r.addAncestorListener((AncestorListener) context.getListener(
+            "ancestor",
+            e.getAsString()
+          ));
+        }
+      }
+
+      if (o.has("vetoable-change")) {
+        final JsonArray a = o.getAsJsonArray("vetoable-change");
+
+        for (final JsonElement e: o.getAsJsonArray("vetoable-change")) {
+          r.addVetoableChangeListener((VetoableChangeListener) context.getListener(
+            "vetoable-change",
+            e.getAsString()
+          ));
+        }
+      }
+    }
+
     // set opacity
     if (el.has("opaque"))
       r.setOpaque(el.get("opaque").getAsBoolean());
@@ -192,6 +385,38 @@ public final class ComponentParsers {
 
     if (el.has("extended-state")) {
       // TODO
+    }
+
+    // add listeners
+    if (el.has("listeners")) {
+      final JsonObject o = el.getAsJsonObject("listeners");
+
+      if (o.has("window-focus")) {
+        for (final JsonElement e: o.getAsJsonArray("window-focus")) {
+          r.addWindowFocusListener((WindowFocusListener) context.getListener(
+            "window-focus",
+            e.getAsString()
+          ));
+        }
+      }
+
+      if (o.has("window")) {
+        for (final JsonElement e: o.getAsJsonArray("window")) {
+          r.addWindowListener((WindowListener) context.getListener(
+            "window",
+            e.getAsString()
+          ));
+        }
+      }
+
+      if (o.has("window-state")) {
+        for (final JsonElement e: o.getAsJsonArray("window-state")) {
+          r.addWindowStateListener((WindowStateListener) context.getListener(
+            "window-state",
+            e.getAsString()
+          ));
+        }
+      }
     }
 
     // set opacity
@@ -278,6 +503,20 @@ public final class ComponentParsers {
     final Container r
   ) throws Exception {
     initComponent(context, el, r);
+
+    // add listeners
+    if (el.has("listeners")) {
+      final JsonObject o = el.getAsJsonObject("listeners");
+
+      if (o.has("container")) {
+        for (final JsonElement e: o.getAsJsonArray("container")) {
+          r.addContainerListener((ContainerListener) context.getListener(
+            "container",
+            e.getAsString()
+          ));
+        }
+      }
+    }
   }
 
   protected static void initComponent(
@@ -324,6 +563,92 @@ public final class ComponentParsers {
 
     if (el.has("ignore-repaint"))
       r.setIgnoreRepaint(el.get("ignore-repaint").getAsBoolean());
+
+    // add listeners
+    if (el.has("listeners")) {
+      final JsonObject o = el.getAsJsonObject("listeners");
+
+      if (o.has("focus")) {
+        for (final JsonElement e: o.getAsJsonArray("focus")) {
+          r.addFocusListener((FocusListener) context.getListener(
+            "focus",
+            e.getAsString()
+          ));
+        }
+      }
+
+      if (o.has("hierarchy-bounds")) {
+        for (final JsonElement e: o.getAsJsonArray("hierarchy-bounds")) {
+          r.addHierarchyBoundsListener((HierarchyBoundsListener) context.getListener(
+            "hierarchy-bounds",
+            e.getAsString()
+          ));
+        }
+      }
+
+      if (o.has("hierarchy")) {
+        for (final JsonElement e: o.getAsJsonArray("hierarchy")) {
+          r.addHierarchyListener((HierarchyListener) context.getListener(
+            "hierarchy",
+            e.getAsString()
+          ));
+        }
+      }
+
+      if (o.has("input-method")) {
+        for (final JsonElement e: o.getAsJsonArray("input-method")) {
+          r.addInputMethodListener((InputMethodListener) context.getListener(
+            "input-method",
+            e.getAsString()
+          ));
+        }
+      }
+
+      if (o.has("key")) {
+        for (final JsonElement e: o.getAsJsonArray("key")) {
+          r.addKeyListener((KeyListener) context.getListener(
+            "key",
+            e.getAsString()
+          ));
+        }
+      }
+
+      if (o.has("mouse")) {
+        for (final JsonElement e: o.getAsJsonArray("mouse")) {
+          r.addMouseListener((MouseListener) context.getListener(
+            "mouse",
+            e.getAsString()
+          ));
+        }
+      }
+
+      if (o.has("mouse-motion")) {
+        for (final JsonElement e: o.getAsJsonArray("mouse-motion")) {
+          r.addMouseMotionListener((MouseMotionListener) context.getListener(
+            "mouse-motion",
+            e.getAsString()
+          ));
+        }
+      }
+
+      if (o.has("mouse-wheel")) {
+        for (final JsonElement e: o.getAsJsonArray("mouse-wheel")) {
+          r.addMouseWheelListener((MouseWheelListener) context.getListener(
+            "mouse-wheel",
+            e.getAsString()
+          ));
+        }
+      }
+
+      if (o.has("property-change")) {
+        for (final JsonElement e: o.getAsJsonArray("property-change")) {
+          r.addPropertyChangeListener((PropertyChangeListener) context.getListener(
+            "property-change",
+            e.getAsString()
+          ));
+        }
+      }
+    }
 
     if (el.has("locale")) {
       // TODO

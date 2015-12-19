@@ -25,7 +25,7 @@ public final class MenuItemParser implements ComponentParser {
       el.get("text").getAsString()
     ));
 
-    ComponentParsers.initJComponent(context, el, r);
+    ComponentParsers.initAbstractButton(context, el, r);
 
     // set accelerator
     // FIXME: does this belong in init_component?
@@ -38,10 +38,6 @@ public final class MenuItemParser implements ComponentParser {
     // set armed
     if (el.has("armed"))
       r.setArmed(el.get("armed").getAsBoolean());
-
-    // set selected
-    if (el.has("selected"))
-      r.setSelected(el.get("selected").getAsBoolean());
 
     // return result
     return r;
